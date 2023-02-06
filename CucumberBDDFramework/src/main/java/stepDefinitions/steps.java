@@ -4,11 +4,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 import org.junit.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class steps {
 
@@ -110,15 +107,19 @@ public class steps {
     @Then("Atleast 1 wicket keeper in team")
     public void atleast_wicket_keeper_in_team() {
         JSONObject jsonObject = new JSONObject(response);
+        boolean flag= false;
         JSONArray jsonArray = jsonObject.getJSONArray("player");
         for (int i = 0; i < jsonArray.length(); i++) {
             String role = jsonArray.getJSONObject(i).getString("role");
             if(role.equalsIgnoreCase("Wicket-keeper"))
             {
-                Assert.assertEquals("Wicket-keeper",role);
-                System.out.println(jsonArray.getJSONObject(i));
+                flag=true;
+                break;
             }
         }
+
+        Assert.assertTrue(flag);
+
     }
     }
 
